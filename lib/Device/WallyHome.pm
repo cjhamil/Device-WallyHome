@@ -3,152 +3,95 @@ use Moose;
 use MooseX::AttributeShortcuts;
 use namespace::autoclean;
 
-use HTTP::Headers;
-use HTTP::Request;
-use JSON::MaybeXS qw(decode_json);
-use LWP::UserAgent;
+use List::Util qw(first);
+
+with 'Device::WallyHome::Role::Creator';
+with 'Device::WallyHome::Role::REST';
+with 'Device::WallyHome::Role::Validator';
 
 our $VERSION = 0.01;
 
 
 #== ATTRIBUTES =================================================================
 
-has 'apiHostname' => (
-    is      => 'rw',
-    isa     => 'Str',
-    default => 'api.snsr.net',
-);
-
-has 'apiUseHttps' => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 1,
-);
-
-has 'apiVersion' => (
-    is      => 'rw',
-    isa     => 'Str',
-    default => 'v2',
-);
-
-has 'lastError' => (
-    is     => 'ro',
-    isa    => 'Maybe[Str]',
-    writer => '_lastError',
-);
-
-has 'token' => (
-    is       => 'rw',
-    isa      => 'Str',
-    required => 1,
-);
-
-has 'userAgentName' => (
+has 'places' => (
     is => 'lazy',
 );
 
-has 'timeout' => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => '180',
-);
-
-has '_userAgent' => (
-    is => 'lazy',
+has 'sensorsByPlace' => (
+    is => 'lazy'
 );
 
 
 #== ATTRIBUTE BUILDERS =========================================================
 
-sub _build__userAgent {
+sub _build_places {
     my ($self) = @_;
 
-    return LWP::UserAgent->new(
-        agent   => $self->userAgentName(),
-        timeout => $self->timeout(),
-    );
-}
+    my $placeList = $self->request({
+        uri => 'places',
+    });
 
-sub _build_userAgentName {
-    return "Device::WallyHome v$VERSION";
+    my $placeObjectList = [];
+
+    foreach my $placeData (@$placeList) {
+        push @$placeObjectList, $self->_loadPlaceFromApiResponseData($placeData);
+    }
+
+    return $placeObjectList;
 }
 
 
 #== PRIVATE METHODS ============================================================
 
-sub _headers {
-    my ($self) = @_;
+sub _loadPlaceFromApiResponseData {
+    my ($self, $placeData) = @_;
 
-    my $headers = HTTP::Headers->new();
+    my $initData = {};
 
-    $headers->header('Authorization' => 'Bearer ' . $self->token());
+    # Non-Boolean Attributes
+    foreach my $attribute (qw{
+        id
+        accountId
+        label
+        fullAddress
+        address
+        sensorIds
+        nestAdjustments
+        rapidResponseSupport
+    }) {
+        $initData->{$attribute} = $placeData->{$attribute};
+    }
 
-    return $headers;
+    # Boolean Attributes
+    foreach my $attribute (qw{
+        suspended
+        buzzerEnabled
+        nestEnabled
+    }) {
+        $initData->{$attribute} = $placeData->{$attribute} ? 1 : 0;
+    }
+
+    return $self->instantiateObject('Device::WallyHome::Place', $initData);
 }
-
-sub _baseUrl {
-    my ($self) = @_;
-
-    my $s = $self->apiUseHttps() ? 's' : '';
-
-    return "http$s://" . $self->apiHostname() . '/' . $self->apiVersion() . '/';
-}
-
-sub _wallyUrl {
-    my ($self, $path) = @_;
-
-    return $self->_baseUrl() . $path;
-}
-
 
 #== PUBLIC METHODS =============================================================
 
-sub getPlaces {
-    my ($self) = @_;
-
-    my $request = HTTP::Request->new('GET', $self->_wallyUrl('places'), $self->_headers());
-
-    my $response = $self->_userAgent()->request($request);
-
-    my $placeList = {};
-
-    eval {
-        $placeList = decode_json($response->content());
-    };
-
-    if ($@) {
-        $self->_lastError($@);
-
-        return undef;
-    }
-
-    return $placeList;
-}
-
-sub getSensors {
+sub getPlaceById {
     my ($self, $placeId) = @_;
 
-    die 'valid placeId required' unless defined $placeId && !ref($placeId);
+    $self->_checkRequiredScalarParam($placeId, 'placeId');
 
-    my $request = HTTP::Request->new('GET', $self->_wallyUrl("places/$placeId/sensors"), $self->_headers());
-
-    my $response = $self->_userAgent()->request($request);
-
-    my $sensorList = {};
-
-    eval {
-        $sensorList = decode_json($response->content());
-    };
-
-    if ($@) {
-        $self->_lastError($@);
-
-        return undef;
-    }
-
-    return $sensorList;
+    return first { $_->id() eq $placeId } @{ $self->places() };
 }
 
+sub getPlaceByLabel {
+    my ($self, $label) = @_;
+
+    $self->_checkRequiredScalarParam($label, 'label');
+
+    return first { $_->label() eq $label } @{ $self->places() };
+}
 
 __PACKAGE__->meta->make_immutable;
 
