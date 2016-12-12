@@ -2,6 +2,7 @@ package Device::WallyHome::Role::Creator;
 use Moose::Role;
 use MooseX::AttributeShortcuts;
 
+use Data::Dumper;
 use Module::Loader;
 
 our $VERSION = 0.01;
