@@ -5,7 +5,7 @@ use MooseX::AttributeShortcuts;
 our $VERSION = 0.01;
 
 
-#== PUBLIC METHODS =============================================================
+#== PRIVATE METHODS ============================================================
 
 sub _checkRequiredScalarParam {
     my ($self, $value, $paramName) = @_;

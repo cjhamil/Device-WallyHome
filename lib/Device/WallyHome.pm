@@ -18,10 +18,6 @@ has 'places' => (
     is => 'lazy',
 );
 
-has 'sensorsByPlace' => (
-    is => 'lazy'
-);
-
 
 #== ATTRIBUTE BUILDERS =========================================================
 
@@ -75,6 +71,7 @@ sub _loadPlaceFromApiResponseData {
     return $self->instantiateObject('Device::WallyHome::Place', $initData);
 }
 
+
 #== PUBLIC METHODS =============================================================
 
 sub getPlaceById {
@@ -92,6 +89,7 @@ sub getPlaceByLabel {
 
     return first { $_->label() eq $label } @{ $self->places() };
 }
+
 
 __PACKAGE__->meta->make_immutable;
 
