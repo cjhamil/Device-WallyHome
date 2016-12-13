@@ -3,6 +3,8 @@ use Moose;
 use MooseX::AttributeShortcuts;
 use namespace::autoclean;
 
+use List::Util qw(first);
+
 our $VERSION = 0.01;
 
 with 'Device::WallyHome::Role::Creator';
@@ -130,13 +132,6 @@ sub getSensorBySnid {
     return first { $_->snid() eq $snid } @{ $self->sensors() };
 }
 
-sub getSensorByRoom {
-    my ($self, $room) = @_;
-
-    $self->_checkRequiredScalarParam($room, 'room');
-
-    return first { $_->location()->{room} eq $room } @{ $self->sensors() };
-}
 
 __PACKAGE__->meta->make_immutable;
 
