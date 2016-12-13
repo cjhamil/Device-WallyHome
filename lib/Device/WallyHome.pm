@@ -192,7 +192,7 @@ same terms as the Perl 5 programming language system itself.
 
 =head1 BUG REPORTING, ENHANCEMENT/FEATURE REQUESTS
 
-Please report bugs or enhancement requests to cjhamil@cpan.org or on
-GitHub directly at L<https://github.com/cjhamil/Device-WallyHome/issues>
+Please report bugs or enhancement requests on GitHub directly at
+L<https://github.com/cjhamil/Device-WallyHome/issues>
 
 =cut
