@@ -83,11 +83,6 @@ Device::WallyHome - WallyHome Device/Sensor REST API Interface
     # Retrieve a list (ArrayRef) of all Places associated with your account
     my $places = $wally->places();
 
-    # Iterate through a list of Places, printing the identifier and label for each, typically only a single Place
-    foreach my $place (@$places) {
-        printf("%s - %s\n", $place->id(), $place->label());
-    }
-
     # Load a new Place via its unique identifier
     my $place = $wally->getPlaceById('qyWIClYakQX8TQxtFv1ypN6c');
 
@@ -96,11 +91,6 @@ Device::WallyHome - WallyHome Device/Sensor REST API Interface
 
     # Retrieve a list (ArrayRef) of all Sensors associated with a Place
     my $sensors = $home->sensors();
-
-    # Iterate through a list of Sensors, printing the identivier (snid) and label for each
-    foreach my $sensor (@$sensors) {
-        printf("%s - %s\n", $sensor->snid(), $sensor->location()->room());
-    }
 
 =head1 DESCRIPTION
 
@@ -176,6 +166,34 @@ returned.
 
 =back
 
+
+=head1 EXAMPLES
+
+=head2 Basic Examples
+
+    # Iterate through a list of Places, printing the identifier and label for each, typically only a single Place
+    foreach my $place (@$places) {
+        printf("%s - %s\n", $place->id(), $place->label());
+    }
+
+    # Iterate through a list of Sensors, printing the identivier (snid) and label for each
+    foreach my $sensor (@$sensors) {
+        printf("%s - %s\n", $sensor->snid(), $sensor->location()->room());
+    }
+
+=head2 Checking Sensor Data
+
+    # Determine if Relative Humidity is within specified thresholds
+    my $state     = $sensor->state('RH');
+    my $threshold = $sensor->threshold('RH');
+
+    my $currentValue = $state->value();
+    my $min          = $threshold->min() // 0;
+    my $max          = $threshold->max() // 999;
+
+    if ($currentValue < $min || $currentValue > $max) {
+        print "Danger, Will Robinson!\n";
+    }
 
 =head1 AUTHOR
 
