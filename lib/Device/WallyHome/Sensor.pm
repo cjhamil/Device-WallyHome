@@ -7,6 +7,7 @@ our $VERSION = 0.01;
 
 with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';
+with 'Device::WallyHome::Role::Validator';
 
 
 #== ATTRIBUTES =================================================================
@@ -75,15 +76,23 @@ has 'location' => (
 );
 
 has 'thresholds' => (
+    is => 'lazy',
+);
+
+has 'thresholdsByName' => (
     is       => 'ro',
-    isa      => 'HashRef',
+    isa      => 'HashRef[Device::WallyHome::Sensor::Threshold]',
     required => 1,
     writer   => '_thresholds',
 );
 
-has 'state' => (
+has 'states' => (
+    is => 'lazy',
+);
+
+has 'statesByName' => (
     is       => 'ro',
-    isa      => 'HashRef',
+    isa      => 'HashRef[Device::WallyHome::Sensor::State]',
     required => 1,
     writer   => '_state',
 );
@@ -98,14 +107,35 @@ has 'activities' => (
 
 #== ATTRIBUTE BUILDERS =========================================================
 
+sub _build_thresholds {
+    my ($self) = @_;
 
+    return [map { $self->thresholdsByName()->{$_} } sort keys %{ $self->thresholdsByName() }];
+}
 
-#== PRIVATE METHODS ============================================================
+sub _build_states {
+    my ($self) = @_;
 
-
+    return [map { $self->statesByName()->{$_} } sort keys %{ $self->statesByName() }];
+}
 
 #== PUBLIC METHODS =============================================================
 
+sub threshold {
+    my ($self, $name) = @_;
+
+    $self->_checkRequiredScalarParam($name, 'name');
+
+    return $self->thresholdsByName->{$name} // undef;
+}
+
+sub state {
+    my ($self, $name) = @_;
+
+    $self->_checkRequiredScalarParam($name, 'name');
+
+    return $self->statesByName->{$name} // undef;
+}
 
 
 __PACKAGE__->meta->make_immutable;

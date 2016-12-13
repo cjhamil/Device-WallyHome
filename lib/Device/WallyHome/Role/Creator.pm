@@ -108,8 +108,6 @@ sub loadSensorFromApiResponseData {
         signalStrength
         recentSignalStrength
         hardwareType
-        thresholds
-        state
         activities
     }) {
         $initData->{$attribute} = $sensorData->{$attribute};
@@ -125,6 +123,34 @@ sub loadSensorFromApiResponseData {
     }
 
     $initData->{location} = $self->instantiateObject('Device::WallyHome::Sensor::Location', $sensorData->{location});
+
+    $initData->{thresholdsByName} = {};
+
+    foreach my $thresholdDataKey (keys %{ $sensorData->{thresholds} // {} }) {
+        my $thresholdHref = $sensorData->{thresholds}->{$thresholdDataKey};
+
+        my $thresholdData = {
+            max  => $thresholdHref->{max},
+            min  => $thresholdHref->{min},
+            name => $thresholdDataKey,
+        };
+
+        $initData->{thresholdsByName}->{$thresholdDataKey} = $self->instantiateObject('Device::WallyHome::Sensor::Threshold', $thresholdData);
+    }
+
+    $initData->{statesByName} = {};
+
+    foreach my $stateDataKey (keys %{ $sensorData->{state} // {} }) {
+        my $stateHref = $sensorData->{state}->{$stateDataKey};
+
+        my $stateData = {
+            at    => $stateHref->{at},
+            name  => $stateDataKey,
+            value => $stateHref->{value},
+        };
+
+        $initData->{statesByName}->{$stateDataKey} = $self->instantiateObject('Device::WallyHome::Sensor::State', $stateData);
+    }
 
     my $sensor = $self->instantiateObject('Device::WallyHome::Sensor', $initData);
 }
