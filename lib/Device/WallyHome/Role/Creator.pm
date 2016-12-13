@@ -52,6 +52,10 @@ sub instantiateObject {
         $params->{timeout}      //= $self->timeout();
     }
 
+    if ($self->_testModeIdentifier()) {
+        $params->{_testModeIdentifier} = $self->_testModeIdentifier();
+    }
+
     # Use ourself as the callback object
     $params->{callbackObject} = $self;
 
