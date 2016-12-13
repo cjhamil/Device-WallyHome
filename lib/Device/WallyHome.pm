@@ -101,9 +101,9 @@ changes in temperature and humidity, as well as when doors and windows open.
 The WallyHome REST API provides an interface into the places and sensors
 associated with a WallyHome account.
 
-Device::WallyHome provides a programatic interface wrapper around
-the WalyHome REST API to simplify integration for any associated scripting
-needs.
+Device::WallyHome provides an object oriented interface wrapped around
+the WallyHome REST API, designed to simplify integration for any associated
+scripting needs.
 
 The only information to get started with Device::WallyHome is the
 Security Token that can be generated from the Account Settings page
