@@ -11,8 +11,9 @@ our $VERSION = 0.01;
 #== ATTRIBUTES =================================================================
 
 has 'callbackObject' => (
-    is       => 'rw',
+    is       => 'ro',
     weak_ref => 1,
+    writer   => '_callbackObject',
 );
 
 
@@ -61,6 +62,71 @@ sub instantiateObject {
     die "Failed to instantiate object ($class): " . Dumper($params) unless defined $obj;
 
     return $obj;
+}
+
+sub loadPlaceFromApiResponseData {
+    my ($self, $placeData) = @_;
+
+    my $initData = {};
+
+    # Non-Boolean Attributes
+    foreach my $attribute (qw{
+        id
+        accountId
+        label
+        fullAddress
+        address
+        sensorIds
+        nestAdjustments
+        rapidResponseSupport
+    }) {
+        $initData->{$attribute} = $placeData->{$attribute};
+    }
+
+    # Boolean Attributes
+    foreach my $attribute (qw{
+        suspended
+        buzzerEnabled
+        nestEnabled
+    }) {
+        $initData->{$attribute} = $placeData->{$attribute} ? 1 : 0;
+    }
+
+    return $self->instantiateObject('Device::WallyHome::Place', $initData);
+}
+
+sub loadSensorFromApiResponseData {
+    my ($self, $sensorData) = @_;
+
+    my $initData = {};
+
+    # Non-Boolean Attributes
+    foreach my $attribute (qw{
+        snid
+        paired
+        updated
+        signalStrength
+        recentSignalStrength
+        hardwareType
+        thresholds
+        state
+        activities
+    }) {
+        $initData->{$attribute} = $sensorData->{$attribute};
+    }
+
+    # Boolean Attributes
+    foreach my $attribute (qw{
+        offline
+        suspended
+        alarmed
+    }) {
+        $initData->{$attribute} = $sensorData->{$attribute} ? 1 : 0;
+    }
+
+    $initData->{location} = $self->instantiateObject('Device::WallyHome::Sensor::Location', $sensorData->{location});
+
+    my $sensor = $self->instantiateObject('Device::WallyHome::Sensor', $initData);
 }
 
 1;

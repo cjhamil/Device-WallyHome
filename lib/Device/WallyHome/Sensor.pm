@@ -12,84 +12,84 @@ with 'Device::WallyHome::Role::REST';
 #== ATTRIBUTES =================================================================
 
 has 'snid' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Str',
     required => 1,
     writer   => '_snid',
 );
 
 has 'offline' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Int',
     required => 1,
     writer   => '_offline',
 );
 
 has 'paired' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Str',
     required => 1,
     writer   => '_paired',
 );
 
 has 'updated' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Str',
     required => 1,
     writer   => '_updated',
 );
 
 has 'alarmed' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Str',
     required => 1,
     writer   => '_alarmed',
 );
 
 has 'signalStrength' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Num',
     required => 1,
     writer   => '_signalStrength',
 );
 
 has 'recentSignalStrength' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Num',
     required => 1,
     writer   => '_recentSignalStrength',
 );
 
 has 'hardwareType' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Str',
     required => 1,
     writer   => '_hardwareType',
 );
 
 has 'location' => (
-    is       => 'rw',
-    isa      => 'HashRef',
+    is       => 'ro',
+    isa      => 'Device::WallyHome::Sensor::Location',
     required => 1,
     writer   => '_location',
 );
 
 has 'thresholds' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'HashRef',
     required => 1,
     writer   => '_thresholds',
 );
 
 has 'state' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'HashRef',
     required => 1,
     writer   => '_state',
 );
 
 has 'activities' => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'ArrayRef',
     required => 1,
     writer   => '_activities',
