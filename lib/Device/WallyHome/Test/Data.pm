@@ -2,6 +2,8 @@ package Device::WallyHome::Test::Data;
 use Moose;
 use namespace::autoclean;
 
+our $VERSION = 0.01;
+
 
 #== PUBLIC METHODS =============================================================
 
