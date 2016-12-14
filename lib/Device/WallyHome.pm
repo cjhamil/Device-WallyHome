@@ -9,7 +9,7 @@ with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';
 with 'Device::WallyHome::Role::Validator';
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 
 #== ATTRIBUTES =================================================================
@@ -80,16 +80,16 @@ Device::WallyHome - WallyHome Device/Sensor REST API Interface
         token => 'f4379e51-222f-4def-8ee1-edf0b15be3b8',
     );
 
-    # Retrieve a list (ArrayRef) of all Places associated with your account
+    # Retrieve a list (ArrayRef) of all places associated with your account
     my $places = $wally->places();
 
-    # Load a new Place via its unique identifier
+    # Load a new place via its unique identifier
     my $place = $wally->getPlaceById('qyWIClYakQX8TQxtFv1ypN6c');
 
-    # Load a new Place via its friendly label
+    # Load a new place via its friendly label
     my $home = $wally->getPlaceByLabel('Home');
 
-    # Retrieve a list (ArrayRef) of all Sensors associated with a Place
+    # Retrieve a list (ArrayRef) of all Sensors associated with a place
     my $sensors = $home->sensors();
 
 =head1 DESCRIPTION
@@ -171,12 +171,12 @@ returned.
 
 =head2 Basic Examples
 
-    # Iterate through a list of Places, printing the identifier and label for each, typically only a single Place
+    # Iterate through a list of places, printing the identifier and label for each, typically only a single place
     foreach my $place (@$places) {
         printf("%s - %s\n", $place->id(), $place->label());
     }
 
-    # Iterate through a list of Sensors, printing the identivier (snid) and label for each
+    # Iterate through a list of sensors, printing the identifier (snid) and label for each
     foreach my $sensor (@$sensors) {
         printf("%s - %s\n", $sensor->snid(), $sensor->location()->room());
     }
