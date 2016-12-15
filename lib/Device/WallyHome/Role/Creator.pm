@@ -4,7 +4,7 @@ use Moo::Role;
 use Data::Dumper;
 use Module::Loader;
 
-our $VERSION = '0.21.3';
+our $VERSION = '0.21.4';
 
 
 #== ATTRIBUTES =================================================================

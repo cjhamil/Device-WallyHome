@@ -3,7 +3,7 @@ use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
 use namespace::autoclean;
 
-our $VERSION = '0.21.3';
+our $VERSION = '0.21.4';
 
 with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';

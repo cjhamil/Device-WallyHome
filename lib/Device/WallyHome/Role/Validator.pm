@@ -1,7 +1,7 @@
 package Device::WallyHome::Role::Validator;
 use Moo::Role;
 
-our $VERSION = '0.21.3';
+our $VERSION = '0.21.4';
 
 
 #== PRIVATE METHODS ============================================================
