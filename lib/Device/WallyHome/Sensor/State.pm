@@ -3,7 +3,7 @@ use Moose;
 use MooseX::AttributeShortcuts;
 use namespace::autoclean;
 
-our $VERSION = '0.21.1';
+our $VERSION = '0.21.2';
 
 
 #== ATTRIBUTES =================================================================
