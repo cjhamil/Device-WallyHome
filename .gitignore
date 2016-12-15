@@ -13,4 +13,5 @@
 /Device-WallyHome-*/
 /Device-WallyHome-*.tar.gz
 /Device-WallyHome-*.tar*
-
+/script
+/tmp
