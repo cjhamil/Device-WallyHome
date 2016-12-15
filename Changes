@@ -1,3 +1,9 @@
+0.21.3 2016-12-15 21:43 UTC
+    * Add role versions back
+
+0.21.2 2016-12-15 20:30 UTC
+    * Adjust dependencies
+
 0.21.1 2016-12-15 20:10 UTC
     * Adjust dependencies
     * Switch to semantic versioning
