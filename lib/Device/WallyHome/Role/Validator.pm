@@ -1,6 +1,5 @@
 package Device::WallyHome::Role::Validator;
-use Moose::Role;
-use MooseX::AttributeShortcuts;
+use Moo::Role;
 
 our $VERSION = '0.21.3';
 

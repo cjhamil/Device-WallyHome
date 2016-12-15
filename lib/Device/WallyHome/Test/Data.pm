@@ -1,5 +1,5 @@
 package Device::WallyHome::Test::Data;
-use Moose;
+use Moo;
 use namespace::autoclean;
 
 our $VERSION = '0.21.3';

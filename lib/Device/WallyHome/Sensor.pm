@@ -1,6 +1,6 @@
 package Device::WallyHome::Sensor;
-use Moose;
-use MooseX::AttributeShortcuts;
+use Moo;
+use MooX::Types::MooseLike::Base qw(:all);
 use namespace::autoclean;
 
 our $VERSION = '0.21.3';
@@ -14,63 +14,63 @@ with 'Device::WallyHome::Role::Validator';
 
 has 'snid' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_snid',
 );
 
 has 'offline' => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     required => 1,
     writer   => '_offline',
 );
 
 has 'paired' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_paired',
 );
 
 has 'updated' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_updated',
 );
 
 has 'alarmed' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_alarmed',
 );
 
 has 'signalStrength' => (
     is       => 'ro',
-    isa      => 'Num',
+    isa      => Num,
     required => 1,
     writer   => '_signalStrength',
 );
 
 has 'recentSignalStrength' => (
     is       => 'ro',
-    isa      => 'Num',
+    isa      => Num,
     required => 1,
     writer   => '_recentSignalStrength',
 );
 
 has 'hardwareType' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_hardwareType',
 );
 
 has 'location' => (
     is       => 'ro',
-    isa      => 'Device::WallyHome::Sensor::Location',
+    isa      => Object,
     required => 1,
     writer   => '_location',
 );
@@ -81,7 +81,7 @@ has 'thresholds' => (
 
 has 'thresholdsByName' => (
     is       => 'ro',
-    isa      => 'HashRef[Device::WallyHome::Sensor::Threshold]',
+    isa      => HashRef[Object],
     required => 1,
     writer   => '_thresholds',
 );
@@ -92,14 +92,14 @@ has 'states' => (
 
 has 'statesByName' => (
     is       => 'ro',
-    isa      => 'HashRef[Device::WallyHome::Sensor::State]',
+    isa      => HashRef[Object],
     required => 1,
     writer   => '_state',
 );
 
 has 'activities' => (
     is       => 'ro',
-    isa      => 'ArrayRef',
+    isa      => ArrayRef,
     required => 1,
     writer   => '_activities',
 );

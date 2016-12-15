@@ -1,6 +1,6 @@
 package Device::WallyHome::Role::REST;
-use Moose::Role;
-use MooseX::AttributeShortcuts;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw(:all);
 
 use Data::Dumper;
 use HTTP::Headers;
@@ -17,31 +17,31 @@ our $VERSION = '0.21.3';
 
 has 'apiHostname' => (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => Str,
     default => 'api.snsr.net',
 );
 
 has 'apiUseHttps' => (
     is      => 'rw',
-    isa     => 'Int',
+    isa     => Int,
     default => 1,
 );
 
 has 'apiVersion' => (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => Str,
     default => 'v2',
 );
 
 has 'lastApiError' => (
     is     => 'ro',
-    isa    => 'Maybe[Str]',
+    isa    => Maybe[Str],
     writer => '_lastApiError',
 );
 
 has 'token' => (
     is       => 'rw',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
 );
 
@@ -51,7 +51,7 @@ has 'userAgentName' => (
 
 has 'timeout' => (
     is      => 'rw',
-    isa     => 'Int',
+    isa     => Int,
     default => '180',
 );
 
@@ -61,7 +61,7 @@ has '_userAgent' => (
 
 has '_testModeIdentifier' => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 

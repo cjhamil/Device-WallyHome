@@ -1,6 +1,6 @@
 package Device::WallyHome::Sensor::Threshold;
-use Moose;
-use MooseX::AttributeShortcuts;
+use Moo;
+use MooX::Types::MooseLike::Base qw(:all);
 use namespace::autoclean;
 
 our $VERSION = '0.21.3';
@@ -10,21 +10,21 @@ our $VERSION = '0.21.3';
 
 has 'name' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_name',
 );
 
 has 'min' => (
     is       => 'ro',
-    isa      => 'Maybe[Num]',
+    isa      => Maybe[Num],
     required => 1,
     writer   => '_min',
 );
 
 has 'max' => (
     is       => 'ro',
-    isa      => 'Maybe[Num]',
+    isa      => Maybe[Num],
     required => 1,
     writer   => '_max',
 );

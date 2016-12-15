@@ -1,6 +1,5 @@
 package Device::WallyHome::Role::Creator;
-use Moose::Role;
-use MooseX::AttributeShortcuts;
+use Moo::Role;
 
 use Data::Dumper;
 use Module::Loader;

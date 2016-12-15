@@ -1,6 +1,6 @@
 package Device::WallyHome::Place;
-use Moose;
-use MooseX::AttributeShortcuts;
+use Moo;
+use MooX::Types::MooseLike::Base qw(:all);
 use namespace::autoclean;
 
 use List::Util qw(first);
@@ -16,77 +16,77 @@ with 'Device::WallyHome::Role::Validator';
 
 has 'id' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_id',
 );
 
 has 'accountId' => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
     writer   => '_accountId',
 );
 
 has 'label' => (
     is       => 'ro',
-    isa      => 'Maybe[Str]',
+    isa      => Maybe[Str],
     required => 1,
     writer   => '_label',
 );
 
 has 'fullAddress' => (
     is       => 'ro',
-    isa      => 'Maybe[HashRef]',
+    isa      => Maybe[HashRef],
     required => 1,
     writer   => '_fullAddress',
 );
 
 has 'address' => (
     is       => 'ro',
-    isa      => 'Maybe[Str]',
+    isa      => Maybe[Str],
     required => 1,
     writer   => '_address',
 );
 
 has 'suspended' => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     required => 1,
     writer   => '_suspended',
 );
 
 has 'buzzerEnabled' => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     required => 1,
     writer   => '_buzzerEnabled',
 );
 
 has 'sensorIds' => (
     is       => 'ro',
-    isa      => 'ArrayRef',
+    isa      => ArrayRef,
     required => 1,
     writer   => '_sensorIds',
 );
 
 has 'nestAdjustments' => (
     is       => 'ro',
-    isa      => 'HashRef',
+    isa      => HashRef,
     required => 1,
     writer   => '_nestAdjustments',
 );
 
 has 'nestEnabled' => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     required => 1,
     writer   => '_nestEnabled',
 );
 
 has 'rapidResponseSupport' => (
     is       => 'ro',
-    isa      => 'ArrayRef',
+    isa      => ArrayRef,
     required => 1,
     writer   => '_rapidResponseSupport',
 );

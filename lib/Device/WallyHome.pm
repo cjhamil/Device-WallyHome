@@ -1,6 +1,5 @@
 package Device::WallyHome;
-use Moose;
-use MooseX::AttributeShortcuts;
+use Moo;
 use namespace::autoclean;
 
 use List::Util qw(first);
