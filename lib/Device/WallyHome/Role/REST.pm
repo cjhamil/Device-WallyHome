@@ -10,6 +10,8 @@ use LWP::UserAgent;
 
 use Device::WallyHome::Test::Data;
 
+our $VERSION = '0.21.3';
+
 
 #== ATTRIBUTES =================================================================
 

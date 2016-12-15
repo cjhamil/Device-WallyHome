@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 use List::Util qw(first);
 
-our $VERSION = '0.21.2';
+our $VERSION = '0.21.3';
 
 with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';
