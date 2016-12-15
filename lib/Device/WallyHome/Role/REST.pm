@@ -75,6 +75,8 @@ sub _build__userAgent {
 }
 
 sub _build_userAgentName {
+    my $VERSION = Device::WallyHome->VERSION;
+
     return "Device::WallyHome v$VERSION";
 }
 

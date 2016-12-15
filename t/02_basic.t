@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More tests => 17;
 
 use Device::WallyHome;
 use Device::WallyHome::Test::Data;
@@ -14,6 +14,11 @@ my $wally = Device::WallyHome->new(
 );
 
 ok(defined $wally, 'instantiate wally object');
+
+
+# Check REST API user agent name
+ok($wally->userAgentName() =~ /^Device::WallyHome v\d+\.\d+\.\d+/, 'useragent name formatted');
+ok($wally->userAgentName() eq 'Device::WallyHome v' . Device::WallyHome->VERSION, 'useragent name correct version');
 
 
 # Get places
