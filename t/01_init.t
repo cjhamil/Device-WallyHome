@@ -9,7 +9,7 @@ BEGIN { use_ok('Device::WallyHome') }
 BEGIN {
     ok(defined Device::WallyHome->VERSION, 'version defined');
 
-    throws_ok(sub{ my $device = Device::WallyHome->new() }, qr/Attribute \(token\) is required at constructor/, 'required token attribute');
+    throws_ok(sub{ my $device = Device::WallyHome->new() }, qr/Attribute \(token\) is required at/, 'required token attribute');
 
     my $device = Device::WallyHome->new(token => 'test-token');
 
