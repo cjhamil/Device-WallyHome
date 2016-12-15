@@ -5,8 +5,6 @@ use MooseX::AttributeShortcuts;
 use Data::Dumper;
 use Module::Loader;
 
-our $VERSION = 0.01;
-
 
 #== ATTRIBUTES =================================================================
 

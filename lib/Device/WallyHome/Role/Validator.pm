@@ -2,8 +2,6 @@ package Device::WallyHome::Role::Validator;
 use Moose::Role;
 use MooseX::AttributeShortcuts;
 
-our $VERSION = 0.01;
-
 
 #== PRIVATE METHODS ============================================================
 

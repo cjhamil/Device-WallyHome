@@ -5,11 +5,11 @@ use namespace::autoclean;
 
 use List::Util qw(first);
 
+our $VERSION = '0.21.1';
+
 with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';
 with 'Device::WallyHome::Role::Validator';
-
-our $VERSION = 0.02;
 
 
 #== ATTRIBUTES =================================================================

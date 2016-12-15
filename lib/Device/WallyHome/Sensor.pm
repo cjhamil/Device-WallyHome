@@ -3,7 +3,7 @@ use Moose;
 use MooseX::AttributeShortcuts;
 use namespace::autoclean;
 
-our $VERSION = 0.01;
+our $VERSION = '0.21.1';
 
 with 'Device::WallyHome::Role::Creator';
 with 'Device::WallyHome::Role::REST';
